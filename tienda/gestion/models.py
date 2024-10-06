@@ -31,18 +31,21 @@ class Carrito_compra(models.Model):
     cantidad_total_productos=models.IntegerField()
     monto_carrito=models.DecimalField(max_digits=10, decimal_places=2)
     
-    
+class Categoria(models.Model):
+    id_categoria=models.CharField(max_length=10, unique=True)
+    nombre_categoria=models.CharField(max_length=10)
+
 class Producto(models.Model):
     
     id_producto=models.CharField(max_length=10, unique=True)
     carrito_ccid = models.ForeignKey(Carrito_compra, on_delete=models.CASCADE, related_name='carrito_ccid')
     admin_aid = models.ForeignKey(Administrador, on_delete=models.CASCADE, related_name='admin_aid')
     pedido_pid = models.ForeignKey(Pedido, on_delete=models.CASCADE, related_name='pedido_pid')
+    categoria_cid = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='categoria_cid')
     estado_producto=models.BooleanField()
     nombre=models.CharField(max_length=30)
     precio= models.DecimalField(max_digits=10, decimal_places=2)
     descripcion=models.CharField(max_length=50)
-    categoria=models.CharField(max_length=10)
     foto_producto=models.ImageField(upload_to='productos/', null=True, blank=True)
     cantidad_producto=models.IntegerField()
     
@@ -60,9 +63,6 @@ class PedidoProducto(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad_producto_carrito=models.IntegerField()
     
-class Categoria(models.Model):
-    id_categoria=models.CharField(max_length=10, unique=True)
-    nombre_categoria=models.CharField(max_length=10)
 
    
 
