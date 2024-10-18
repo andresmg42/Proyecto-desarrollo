@@ -5,3 +5,6 @@ from django.shortcuts import render, HttpResponse
 
 def home(request):
     return render(request, "gestion/home.html")
+
+def login(request):
+    return render(request, "gestion/login.html")
