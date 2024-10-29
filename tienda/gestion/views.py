@@ -8,3 +8,9 @@ def home(request):
 
 def login(request):
     return render(request, "gestion/login.html")
+
+def adminInicio(request):
+    return render(request, "gestion/index.html")
+
+def adminPrueba(request):
+    return render(request, "gestion/categoriasAdmin.html")
