@@ -11,3 +11,6 @@ def login(request):
 
 def adminInicio(request):
     return render(request, "gestion/index.html")
+
+def adminPrueba(request):
+    return render(request, "gestion/categoriasAdmin.html")
