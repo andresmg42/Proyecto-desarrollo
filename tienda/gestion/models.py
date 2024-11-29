@@ -1,25 +1,26 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
-class Usuario(models.Model):
-    #id=models.CharField(max_length=10, unique=True,primary_key=True)
-    nombre=models.CharField(max_length = 30)
-    direccion=models.CharField(max_length=50)
-    email=models.EmailField()
-    tfno=models.CharField(max_length=10, verbose_name="Teléfono")
-    contrasena=models.CharField(max_length = 10, verbose_name="Contraseña")
-    foto= models.ImageField(upload_to='usuarios/', null=True, verbose_name="Foto de perfil")
+# class Usuario(models.Model):
     
-    class Meta:
-        verbose_name='usuario'
-        verbose_name_plural='usuarios'
+#     nombre=models.CharField(max_length = 30)
+#     direccion=models.CharField(max_length=50)
+#     email=models.EmailField()
+#     tfno=models.CharField(max_length=10, verbose_name="Teléfono")
+#     contrasena=models.CharField(max_length = 10, verbose_name="Contraseña")
+#     foto= models.ImageField(upload_to='usuarios/', null=True, verbose_name="Foto de perfil")
+    
+#     class Meta:
+#         verbose_name='usuario'
+#         verbose_name_plural='usuarios'
         
-    def __str__(self):
-        return self.nombre
+#     def __str__(self):
+#         return self.nombre
 
 class Categoria(models.Model):
-    #id_categoria=models.CharField(max_length=10, unique=True,primary_key=True, verbose_name="Id de la categoría")
-    nombre_categoria=models.CharField(max_length=10, verbose_name="Nombre de la categoría")
+    
+    nombre_categoria=models.CharField(max_length=30, verbose_name="Nombre de la categoría")
     class Meta:
         verbose_name='categoria'
         verbose_name_plural='categorias'
@@ -30,7 +31,7 @@ class Categoria(models.Model):
     
 class Producto(models.Model):
     
-    #id_producto=models.CharField(max_length=10, unique=True, primary_key=True, verbose_name="Id del producto")
+    
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='categoria_cid', verbose_name="Categoría")
     estado_producto=models.BooleanField(verbose_name="Disponible")
     nombre=models.CharField(max_length=30)
@@ -47,10 +48,9 @@ class Producto(models.Model):
         return self.nombre
     
 class Pedido(models.Model):
-    #id_compra=models.CharField(max_length=10, unique=True, primary_key=True, verbose_name="Id de la compra")
-    usuarios = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='cliente_pid', verbose_name="Id del usuario")
+    
+    usuarios = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cliente_pid', verbose_name="Id del usuario")
     metodo_pago=models.CharField(max_length=30, verbose_name="Método de pago")
-    #monto_pedido= models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Cantidad pedida")
     productos=models.ManyToManyField(Producto,through='PedidoProducto')
     hora=models.TimeField(auto_now_add=True)
     estado_pedido=models.BooleanField(verbose_name="Envíado")
