@@ -7,7 +7,7 @@ from rest_framework.documentation import include_docs_urls
 
 router=routers.DefaultRouter()
 
-#router.register(r'usuarios',views.UsuarioView, 'usuarios')
+router.register(r'usuarios',views.UsuarioView, 'usuarios')
 router.register(r'categorias', views.CategoriaView,'categorias')
 router.register(r'productos',views.ProductoView,'prodctos')
 router.register(r'pedidos',views.PedidoView,'pedidos')

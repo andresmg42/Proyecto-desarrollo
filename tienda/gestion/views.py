@@ -11,7 +11,9 @@ from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
-
+class UsuarioView(viewsets.ModelViewSet):
+    serializer_class=UsuarioSerializer
+    queryset=User.objects.all()
 
 class CategoriaView(viewsets.ModelViewSet):
     serializer_class=CategoriaSerializer

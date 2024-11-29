@@ -2,21 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 
-# class Usuario(models.Model):
-    
-#     nombre=models.CharField(max_length = 30)
-#     direccion=models.CharField(max_length=50)
-#     email=models.EmailField()
-#     tfno=models.CharField(max_length=10, verbose_name="Teléfono")
-#     contrasena=models.CharField(max_length = 10, verbose_name="Contraseña")
-#     foto= models.ImageField(upload_to='usuarios/', null=True, verbose_name="Foto de perfil")
-    
-#     class Meta:
-#         verbose_name='usuario'
-#         verbose_name_plural='usuarios'
-        
-#     def __str__(self):
-#         return self.nombre
 
 class Categoria(models.Model):
     
