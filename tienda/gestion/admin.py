@@ -1,7 +1,7 @@
 from django.contrib import admin
-from gestion.models import Producto, Categoria, Usuario, PedidoProducto,Pedido
+#from gestion.models import Producto, Categoria, Usuario, PedidoProducto,Pedido
 
-class ProductosAdmin(admin.ModelAdmin):#Copiado en products
+"""class ProductosAdmin(admin.ModelAdmin):#Copiado en products
     list_display = ("nombre", "categoria", "precio")
     list_filter = ("categoria",)
     search_fields = ("nombre", "categoria", "precio")
@@ -36,7 +36,7 @@ class PedidosAdmin(admin.ModelAdmin):#Copiado en pedido
 admin.site.register(Producto, ProductosAdmin)
 admin.site.register(Categoria, CategoriasAdmin)
 admin.site.register(Usuario, UsuariosAdmin)
-admin.site.register(Pedido, PedidosAdmin)
+admin.site.register(Pedido, PedidosAdmin)"""
 
 
 

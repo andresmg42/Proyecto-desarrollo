@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-class Usuario(models.Model):#Copiado en autenticacion
+"""class Usuario(models.Model):#Copiado en autenticacion
     #id=models.CharField(max_length=10, unique=True,primary_key=True)
     nombre=models.CharField(max_length = 30)
     direccion=models.CharField(max_length=50)
@@ -79,5 +79,5 @@ class PedidoProducto(models.Model):#Copiado en pedidos
 class CarritoProducto(models.Model):#Copiado en carro
     carrito = models.ForeignKey(Carrito_compra, on_delete=models.CASCADE)
     producto= models.ForeignKey(Producto, on_delete=models.CASCADE)
-    cantidad_producto_carrito=models.IntegerField() 
+    cantidad_producto_carrito=models.IntegerField() """
 
