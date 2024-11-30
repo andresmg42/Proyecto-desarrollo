@@ -4,3 +4,9 @@ from django.shortcuts import render
 
 def login(request):
     return render(request, "autenticacion/login.html")
+
+def register(request):
+    return render(request, "autenticacion/register.html")
+
+def adminUsuarios(request):
+    return render(request, "autenticacion/usuariosAdmin.html")
