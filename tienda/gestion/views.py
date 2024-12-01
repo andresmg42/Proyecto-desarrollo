@@ -73,4 +73,6 @@ def profile(request):
 def get_products_by_category(request, category_id):
     products = Producto.objects.filter(categoria_id=category_id)  
     serializer = ProductoSerializer(instance=products, many=True)  
+    for product in serializer.data:
+        product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
     return Response({"products": serializer.data}, status=status.HTTP_200_OK)
