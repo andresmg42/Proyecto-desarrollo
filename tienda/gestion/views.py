@@ -69,6 +69,7 @@ def profile(request):
     print(request.user.id)
     return Response("you are login with {}".format(request.user.username),status=status.HTTP_200_OK)
 
+#filtro productos por categoria
 @api_view(['GET'])
 def get_products_by_category(request, category_id):
     products = Producto.objects.filter(categoria_id=category_id)  
