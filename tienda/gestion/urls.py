@@ -16,6 +16,7 @@ router.register(r'carrito',views.CarritoView,'carrito')
 urlpatterns = [
 
     path("api/",include(router.urls)),
+    path("api/products_by_category/<int:category_id>/",views.get_products_by_category),
     path("docs/",include_docs_urls(title="Gestion API")),
     re_path('login',views.login),
     re_path('register',views.register),
