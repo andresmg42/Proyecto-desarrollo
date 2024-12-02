@@ -21,3 +21,35 @@ def get_products_by_category(request, category_id):
     for product in serializer.data:
         product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
     return Response({"products": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_products_by_name(request, name):
+    products = Producto.objects.filter(nombre=name)  
+    serializer = ProductoSerializer(instance=products, many=True)  
+    for product in serializer.data:
+        product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
+    return Response({"products": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_products_by_precio(request, precio):
+    products = Producto.objects.filter(precio=float(precio))  
+    serializer = ProductoSerializer(instance=products, many=True)  
+    for product in serializer.data:
+        product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
+    return Response({"products": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_products_by_estado(request,estado):
+    products = Producto.objects.filter(estado_producto=bool(estado))  
+    serializer = ProductoSerializer(instance=products, many=True)  
+    for product in serializer.data:
+        product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
+    return Response({"products": serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_products_by_cantidad(request, cantidad):
+    products = Producto.objects.filter(cantidad_producto=cantidad)  
+    serializer = ProductoSerializer(instance=products, many=True)  
+    for product in serializer.data:
+        product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
+    return Response({"products": serializer.data}, status=status.HTTP_200_OK)

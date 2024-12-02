@@ -14,6 +14,10 @@ urlpatterns = [
 
     path("api/",include(router.urls)),
     path("api/productos/get_by_category/<int:category_id>/",views.get_products_by_category),
+    path("api/productos/get_by_name/<str:name>/",views.get_products_by_name),
+    path("api/productos/get_by_precio/<str:precio>/",views.get_products_by_precio),
+    path("api/productos/get_by_estado/<str:estado>/",views.get_products_by_estado),
+    path("api/productos/get_by_cantidad/<int:cantidad>/",views.get_products_by_cantidad),
     #path("productos/docs/",include_docs_urls(title="API productos")),
     
 
@@ -21,3 +25,4 @@ urlpatterns = [
 ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
