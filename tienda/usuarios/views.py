@@ -43,6 +43,38 @@ def register(request):
     
     return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['PUT'])
+def updateUser(request):
+    try:
+         # Obtén al usuario autenticado (o añade lógica para especificar uno)
+        data = request.data
+        print(data['password'])
+        user=get_object_or_404(User,id= data['id'])
+        
+        # Actualizar campos del usuario
+        
+        user.username = data['username']
+        
+        
+        user.email = data['email']
+        
+       
+        if 'password' in data and data['password']:
+            user.set_password(data['password'])
+        
+        user.save()
+
+        # Serializar los datos actualizados
+        serializer = UsuarioSerializer(user)
+
+        return Response({'message': 'Usuario actualizado correctamente', 'user': serializer.data}, status=status.HTTP_200_OK)
+    
+    except User.DoesNotExist:
+        return Response({'error': 'Usuario no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
