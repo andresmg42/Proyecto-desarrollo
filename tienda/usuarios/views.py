@@ -51,5 +51,21 @@ def profile(request):
     return Response("you are login with {}".format(request.user.username),status=status.HTTP_200_OK)
 
 
+@api_view(['GET'])
+def search_users(request):
+    
+    criteria = request.GET.get('criteria')
+    value = request.GET.get('value')
+    
+    print("criteria= ",criteria)
+    print("value= ",value)
+    
+    if not criteria or not value:
+        return Response({"error": "Missing criteria or value"}, status=400)
 
+    filter_args = {criteria: value}
+    users = User.objects.filter(**filter_args)
+    serializer = UsuarioSerializer(instance=users, many=True)  
+    return Response({"users": serializer.data}, status=status.HTTP_200_OK)
+    
 

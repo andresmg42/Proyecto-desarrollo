@@ -3,7 +3,6 @@ from .import views
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import  routers
-from rest_framework.documentation import include_docs_urls
 
 router=routers.DefaultRouter()
 
@@ -14,11 +13,11 @@ urlpatterns = [
 
     path("api/",include(router.urls)),
     
-   # path("usuarios/docs/",include_docs_urls(title="API Usuarios")),
+  
     re_path('login',views.login),
     re_path('register',views.register),
     re_path('profile',views.profile),
-
+    path("api/filter_users/", views.search_users),
     
 ]
 
