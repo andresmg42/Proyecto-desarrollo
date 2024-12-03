@@ -55,9 +55,9 @@ def updateUser(request):
         # Actualizar campos del usuario
         
         user.username = data['username']
-        
-        
         user.email = data['email']
+        user.is_staff=data['is_staff']
+        user.is_superuser=data['is_superuser']
         
        
         if 'password' in data and data['password']:
