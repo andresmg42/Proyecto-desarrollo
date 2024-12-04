@@ -97,17 +97,20 @@ def search_users(request):
         case 'id':
             value=int(value)
         case 'is_staff':
-            value=bool(value)
+            value = value=='true'
             
         case 'is_superuser':
             
-            value = bool(value)
+            value = value=='true'
+        case 'username':
+            
+            criteria = 'username__icontains'
                 
         case _:
             value=value
     
-    if not criteria or not value:
-        return Response({"error": "Missing criteria or value"}, status=400)
+    # if not criteria or not value:
+    #     return Response({"error": "Missing criteria or value"}, status=400)
 
     filter_args = {criteria: value}
     users = User.objects.filter(**filter_args)

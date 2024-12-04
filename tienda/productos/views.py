@@ -45,10 +45,13 @@ def search_products(request):
             
         case 'precio':
             value=float(value)
+        
+        case 'nombre':
+            criteria='nombre__icontains'
             
         
         case _:
-            value=value.lower()
+            value=value
     
 
 
