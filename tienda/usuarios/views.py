@@ -93,6 +93,19 @@ def search_users(request):
     print("criteria= ",criteria)
     print("value= ",value)
     
+    match criteria:
+        case 'id':
+            value=int(value)
+        case 'is_staff':
+            value=bool(value)
+            
+        case 'is_superuser':
+            
+            value = bool(value)
+                
+        case _:
+            value=value
+    
     if not criteria or not value:
         return Response({"error": "Missing criteria or value"}, status=400)
 
