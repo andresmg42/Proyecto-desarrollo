@@ -16,7 +16,7 @@ class UsuarioView(viewsets.ModelViewSet):
     
 @api_view(['POST'])
 def login(request):
-    
+    print(request.data)
     user=get_object_or_404(User,username=request.data['username'])
     
     if not user.check_password(request.data['password']):
@@ -29,7 +29,6 @@ def login(request):
 
 @api_view(['POST'])
 def register(request):
-        
     serializer=UsuarioSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
@@ -80,8 +79,8 @@ def updateUser(request):
 @authentication_classes([TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def profile(request):
-    print(request.user.id)
-    return Response("you are login with {}".format(request.user.username),status=status.HTTP_200_OK)
+    print(request.headers)
+    return Response("you are login with {}".format('hola'),status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
