@@ -5,29 +5,11 @@ from rest_framework.response import Response
 from .serializer import ProductoSerializer
 from .models import  Producto
 from rest_framework import status
-from rest_framework.decorators import authentication_classes, permission_classes,action
-from rest_framework.permissions import IsAuthenticated,BasePermission,IsAdminUser
-from rest_framework.authentication import TokenAuthentication
 
-
-
-
-class IsClient(BasePermission):
-    """
-    Permite que usuarios con is_staff=True solo puedan leer o crear.
-    """
-    def has_permission(self, request, view):
-        user = request.user
-        if not user.is_staff:
-            return view.action in ['list','retrieve']
-        
-        return True
         
 class ProductoView(viewsets.ModelViewSet):
     serializer_class=ProductoSerializer
     queryset=Producto.objects.all()
-    # authentication_classes=[TokenAuthentication]
-    permission_classes=[IsClient]
     
 
 
