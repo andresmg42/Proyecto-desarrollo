@@ -50,12 +50,12 @@ class UsuarioView(viewsets.ModelViewSet):
     @action(detail=False, methods=['PUT'])
     def update_user(self, request):
         try:
-         # Obtén al usuario autenticado (o añade lógica para especificar uno)
+         
             data = request.data
             print(data['password'])
             user=get_object_or_404(User,id= data['id'])
             
-            # Actualizar campos del usuario
+        
             
             user.username = data['username']
             user.email = data['email']
@@ -68,7 +68,7 @@ class UsuarioView(viewsets.ModelViewSet):
             
             user.save()
 
-            # Serializar los datos actualizados
+            
             serializer = UsuarioSerializer(user)
 
             return Response({'message': 'Usuario actualizado correctamente', 'user': serializer.data}, status=status.HTTP_200_OK)
