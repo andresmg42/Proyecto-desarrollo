@@ -14,11 +14,11 @@ urlpatterns = [
     path("api/",include(router.urls)),
     
   
-    re_path('login/',views.login),
-    re_path('register/',views.register),
-    re_path('update/',views.updateUser),
-    re_path('profile/',views.profile),
-    path("api/filter_users/", views.search_users),
+    path('login/',views.login, name='login'),
+   
+    # re_path('update/',views.updateUser),
+    # re_path('profile/',views.profile),
+    # path("api/filter_users/", views.search_users),
     
 ]
 
