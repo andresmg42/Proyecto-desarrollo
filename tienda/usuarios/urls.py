@@ -15,6 +15,8 @@ urlpatterns = [
     
   
     path('login/',views.login, name='login'),
+    path('verify_email/',views.verify_email, name='verify_email'),
+    path('register_user/',views.register_user, name='register_user'),
    
     # re_path('update/',views.updateUser),
     # re_path('profile/',views.profile),

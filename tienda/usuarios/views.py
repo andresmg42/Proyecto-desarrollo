@@ -10,6 +10,11 @@ from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated,BasePermission,IsAdminUser
 from rest_framework.authentication import TokenAuthentication
 
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.core.mail import send_mail
+
 
 class IsStaffAndCanOnlyReadOrCreate(BasePermission):
     """
@@ -127,3 +132,40 @@ def login(request):
     
     return Response({"token":token.key, "user":serializer.data}, status=status.HTTP_200_OK)
 
+@authentication_classes([TokenAuthentication])
+@api_view(['GET'])
+def verify_email(request):
+    return Response({'message': 'Email verificado exitosamente'}, 
+                    status=status.HTTP_200_OK)
+    
+        
+   
+        
+def send_verification_email(user):
+    token,created= Token.objects.get_or_create(user=user)
+    verification_link = f"http://localhost:5173/verify_Email/{token}"
+    send_mail(
+        'Verify your email',
+        f'Click the link to verify: {verification_link}',
+        'andresdavid.ortega@gmail.com',
+        [user.email],
+        fail_silently=False,
+    )
+
+@api_view(['POST'])
+def register_user(request):
+    data=request.data
+    data['is_staff']=False
+    data['is_superuser']=False
+    serializer = UsuarioSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        user = User.objects.get(username=serializer.data['username'])
+        user.set_password(serializer.data['password'])
+        user.save()
+        send_verification_email(user)
+
+        token,create = Token.objects.get_or_create(user=user)
+        return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
