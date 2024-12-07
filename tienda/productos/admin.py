@@ -1,5 +1,5 @@
 from django.contrib import admin
-from productos.models import Producto
+from productos.models import Producto,ProductoUsuario
 
 
 class ProductosAdmin(admin.ModelAdmin):
@@ -8,8 +8,10 @@ class ProductosAdmin(admin.ModelAdmin):
     search_fields = ("nombre", "categoria", "precio")
 
 
+    
 
 admin.site.register(Producto, ProductosAdmin)
+admin.site.register(ProductoUsuario)
 
 
 

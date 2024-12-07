@@ -23,7 +23,6 @@ urlpatterns = [
     path('',include('productos.urls')),
     path('',include('categorias.urls')),
     path('',include('pedidos.urls')),
-    path('',include('carrito.urls')),
     path('',include('usuarios.urls')),
     path("api/docs/",include_docs_urls(title="API Docs")),
 ]

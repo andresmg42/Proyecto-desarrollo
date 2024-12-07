@@ -1,6 +1,6 @@
 from django.db import models
 from categorias.models import Categoria
-
+from django.contrib.auth.models import User
 
     
 class Producto(models.Model):
@@ -20,6 +20,12 @@ class Producto(models.Model):
         
     def __str__(self):
         return self.nombre
+    
+class ProductoUsuario(models.Model):
+    usuario = models.ForeignKey(User, on_delete= models.CASCADE)
+    producto= models.ForeignKey(Producto, on_delete=models.CASCADE)
+    cantidad_producto=models.IntegerField()
+    
     
 
     

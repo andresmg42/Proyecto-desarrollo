@@ -2,11 +2,12 @@ from django.http import JsonResponse
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import ProductoSerializer
-from .models import  Producto
+from .serializer import ProductoSerializer,UserProductoSerializer
+from .models import  Producto,ProductoUsuario
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.authentication import TokenAuthentication
+
         
 class IsStaffOrSuperuserWriteOnly(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -16,6 +17,10 @@ class IsStaffOrSuperuserWriteOnly(permissions.BasePermission):
         
         # Métodos de escritura solo para usuarios autenticados como staff o superusuarios
         return request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser)
+
+class ProductosUsuariosView(viewsets.ModelViewSet):
+    serializer_class= UserProductoSerializer
+    queryset = ProductoUsuario.objects.all()
 
 class ProductoView(viewsets.ModelViewSet):
     serializer_class = ProductoSerializer
@@ -80,4 +85,36 @@ def search_products(request):
     for product in serializer.data:
         product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
     return Response({"products": serializer.data}, status=status.HTTP_200_OK)
+    
+    
+    
+@api_view(['GET'])
+def search_users_products(request):
+    
+    criteria = request.GET.get('criteria')
+    value = int(request.GET.get('value'))
+    
+    print("criteria= ",criteria)
+    print("value= ",value)
+    
+    if not criteria or not value:
+        return Response({"error": "Missing criteria or value"}, status=400)
+
+    filter_args = {criteria: value}
+    t_pu = ProductoUsuario.objects.filter(**filter_args)
+
+    return Response(find_user_product(t_pu), status=status.HTTP_200_OK)
+
+
+def find_user_product(ids_products):
+    
+    productos = []
+    
+    for product in ids_products:
+         id_product = product.producto_id
+         product_filter = Producto.objects.filter(id=id_product)
+         serializer = ProductoSerializer(instance=product_filter, many=True)
+         productos.append(serializer.data)
+         
+    return productos
     
