@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_recaptcha',
     'productos',
     'categorias',
     'pedidos',
@@ -169,8 +170,11 @@ EMAIL_USE_TLS=True
 
 EMAIL_PORT=587
 
-EMAIL_HOST_USER="andresdavid.ortega@gmail.com"
+EMAIL_HOST_USER="tiendaonlinedesarrollo@gmail.com"
 
-EMAIL_HOST_PASSWORD='ecic zvwz dooo mhsd'
+EMAIL_HOST_PASSWORD='nuzx plvn eeoa xjim'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RECAPTCHA_PUBLIC_KEY = '6Ldch5QqAAAAAJWAlfhVj8E7LFxqh4ezcB40DTqJ'
+RECAPTCHA_PRIVATE_KEY = '6Ldch5QqAAAAABw5ohrwoVQ9y5danUtqDWdcaJwV'

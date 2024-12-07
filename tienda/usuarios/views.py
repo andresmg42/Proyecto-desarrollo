@@ -9,12 +9,13 @@ from django.shortcuts import get_object_or_404
 from rest_framework.decorators import authentication_classes, permission_classes,action
 from rest_framework.permissions import IsAuthenticated,BasePermission,IsAdminUser
 from rest_framework.authentication import TokenAuthentication
-
+from django_recaptcha.fields import ReCaptchaField
+from django.core.exceptions import ValidationError
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.core.mail import send_mail
-
+import requests
 
 class IsStaffAndCanOnlyReadOrCreate(BasePermission):
     """
@@ -152,12 +153,46 @@ def send_verification_email(user):
         fail_silently=False,
     )
 
+
+# def verify_captcha(data):
+#     try:
+        
+#         captcha_value=data['captcha']
+        
+#         payload={
+#             'secret':'6Ldch5QqAAAAABw5ohrwoVQ9y5danUtqDWdcaJwV',
+#             'response':captcha_value
+#         }
+        
+#         google_response=requests.post('https://www.google.com/recaptcha/api/siteverify',data=payload)
+#         google_result=google_response.json()
+        
+#         if google_result.get('succes'):
+#             return Response({'succes':True,'message':'formulario enviado correctamente'},status.HTTP_200_OK)
+#         return Response({'succes':False,'message':'Verificacion del captcha fallida'},status.HTTP_404_NOT_FOUND)
+#     except Exception as e:
+#         return Response({'succes':False,'message':str(e)},status.HTTP_400_BAD_REQUEST)
+
 @api_view(['POST'])
 def register_user(request):
     data=request.data
-    data['is_staff']=False
-    data['is_superuser']=False
-    serializer = UsuarioSerializer(data=data)
+    
+    captcha=data['captcha']
+    
+    recaptcha_field=ReCaptchaField()
+    
+    try:
+        recaptcha_field.validate(captcha)
+        print('captchavalido')
+    except ValidationError :
+        return Response({'success':False,'error':'CAPTCHA invalido'},status=400)
+    
+    print(data['user'])
+    usuario=data['user']
+    usuario['is_staff']=False
+    usuario['is_superuser']=False
+    serializer = UsuarioSerializer(data=usuario)
+    print(serializer.is_valid())
     if serializer.is_valid():
         serializer.save()
         user = User.objects.get(username=serializer.data['username'])
@@ -169,3 +204,10 @@ def register_user(request):
         return Response({'token': token.key, 'user': serializer.data}, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+   
+
+        
+        
+        
