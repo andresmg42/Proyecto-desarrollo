@@ -154,24 +154,6 @@ def send_verification_email(user):
     )
 
 
-# def verify_captcha(data):
-#     try:
-        
-#         captcha_value=data['captcha']
-        
-#         payload={
-#             'secret':'6Ldch5QqAAAAABw5ohrwoVQ9y5danUtqDWdcaJwV',
-#             'response':captcha_value
-#         }
-        
-#         google_response=requests.post('https://www.google.com/recaptcha/api/siteverify',data=payload)
-#         google_result=google_response.json()
-        
-#         if google_result.get('succes'):
-#             return Response({'succes':True,'message':'formulario enviado correctamente'},status.HTTP_200_OK)
-#         return Response({'succes':False,'message':'Verificacion del captcha fallida'},status.HTTP_404_NOT_FOUND)
-#     except Exception as e:
-#         return Response({'succes':False,'message':str(e)},status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 def register_user(request):
