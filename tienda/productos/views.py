@@ -32,7 +32,7 @@ class ProductoView(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     
     def get_permissions(self):
-        if self.action in ['list', 'retrieve','update']:
+        if self.action in ['list', 'retrieve','partial_update']:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAuthenticated, IsStaffOrSuperuserWriteOnly]
@@ -122,4 +122,12 @@ def find_user_product(user_products,request):
          productos.append(producto)
          
     return productos
+    
+@api_view(['DELETE'])    
+def delete_all_user_products(request):
+    id_user=request.GET.get('user_id')
+    num,dic=ProductoUsuario.objects.filter(usuario_id=id_user).delete()
+    return Response({'nuemro de objetos eliminados':num},status=204)
+    
+    
     
