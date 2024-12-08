@@ -32,7 +32,7 @@ class ProductoView(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     
     def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
+        if self.action in ['list', 'retrieve','update']:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAuthenticated, IsStaffOrSuperuserWriteOnly]
@@ -103,18 +103,23 @@ def search_users_products(request):
     filter_args = {criteria: value}
     t_pu = ProductoUsuario.objects.filter(**filter_args)
 
-    return Response(find_user_product(t_pu), status=status.HTTP_200_OK)
+    return Response(find_user_product(t_pu,request), status=status.HTTP_200_OK)
 
 
-def find_user_product(ids_products):
+def find_user_product(user_products,request):
     
     productos = []
     
-    for product in ids_products:
+    for product in user_products:
          id_product = product.producto_id
+         id_user_product=product.id
          product_filter = Producto.objects.filter(id=id_product)
          serializer = ProductoSerializer(instance=product_filter, many=True)
-         productos.append(serializer.data)
+         producto=serializer.data[0]
+         producto['foto_producto'] = request.build_absolute_uri(producto['foto_producto'])
+         producto['id_user_product']=id_user_product
+         producto['cantidad_user_producto']=product.cantidad_producto
+         productos.append(producto)
          
     return productos
     
