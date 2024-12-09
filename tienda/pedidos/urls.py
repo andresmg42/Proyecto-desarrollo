@@ -8,6 +8,7 @@ from rest_framework.documentation import include_docs_urls
 router=routers.DefaultRouter()
 
 router.register(r'pedidos',views.PedidoView,'pedidos')
+router.register(r'pedidos_productos',views.PedidoProductoView,'pedidos_productos')
 
 
 urlpatterns = [
