@@ -16,6 +16,7 @@ class Pedido(models.Model):
     class Meta:
         verbose_name='pedido'
         verbose_name_plural='pedidos'
+       
     
     def __str__(self):
         return self.fecha.strftime("%Y-%m-%d %H:%M:%S")
@@ -24,3 +25,12 @@ class PedidoProducto(models.Model):
     pedido_ppid = models.ForeignKey(Pedido, on_delete=models.CASCADE)
     producto_ppid = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad_producto_carrito=models.IntegerField()
+    
+    class Meta:
+        unique_together=('pedido_ppid','producto_ppid')
+        constraints=[
+            models.UniqueConstraint(
+                fields=['pedido_ppid','producto_ppid'],
+                name='unique_pedido_producto'
+            )
+        ]
