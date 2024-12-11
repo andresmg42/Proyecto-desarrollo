@@ -18,7 +18,12 @@ urlpatterns = [
     path("api/",include(router.urls)),
     path("api/llenarTablaProductosPedidos",views.llenarTablaProductosPedidos, name='llenarTablaProductosPedidos'),
     path("api/productosMasVendidos",views.productosMasVendidos, name='productosMasVendidos'),
-    path("api/ventas_totales_metodo_pago",views.ventas_totales_metodo_pago, name='ventas_totales_metodo_pago')
+    path("api/indicadores_por_usuario",views.indicadores_por_usuario, name='ventas_totales_metodo_pago'),
+    path("api/pedidos_por_estado",views.pedidos_por_estado, name='pedidos_por_estado'),
+    path("api/ventas_diarias",views.ventas_diarias, name='ventas_diarias'),
+    path("api/metodos_pago_mas_utilizados",views.metodos_pago_mas_utilizados, name='metodos_pago_mas_utilizados'),
+    path("api/clientes_mas_frecuentes",views.clientes_mas_frecuentes, name='clientes_mas_frecuentes'),
+    path("api/valor_total_ventas",views.valor_total_ventas, name='valor_total_ventas')
     
     
     #path("pedidos/docs/",include_docs_urls(title="API Pedidos")),
