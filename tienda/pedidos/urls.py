@@ -14,6 +14,7 @@ router.register(r'pedidos_productos',views.PedidoProductoView,'pedidos_productos
 urlpatterns = [
 
     path("api/",include(router.urls)),
+    path("api/send_email_cancel/", views.send_email_cancel,name='send_email_cancel'),
     #path("pedidos/docs/",include_docs_urls(title="API Pedidos")),
     
 
