@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Pedido, PedidoProducto
+from productos.models import Producto
 
 class PedidoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,3 +11,16 @@ class PedidoProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model=PedidoProducto
         fields= '__all__'
+        
+
+class ProductosMasVendidosSerializer(serializers.Serializer):
+    total_vendidos=serializers.IntegerField()
+    class Meta:
+        model=Producto
+        fields='__all__'
+    # nombre=serializers.CharField()
+    # categoria=serializers.CharField()
+    # total_vendidos=serializers.IntegerField()
+    # estado_producto=serializers.BooleanField()
+    # precio=serializers.DecimalField()
+    # descripcion

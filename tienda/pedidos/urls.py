@@ -9,13 +9,17 @@ router=routers.DefaultRouter()
 
 router.register(r'pedidos',views.PedidoView,'pedidos')
 router.register(r'pedidos_productos',views.PedidoProductoView,'pedidos_productos')
+
 #router.register(r'llenarTablaProductosPedidos',views.llenarTablaProductosPedidos,'llenarTablaProductosPedidos')
 
 
 urlpatterns = [
 
     path("api/",include(router.urls)),
-    path("api/llenarTablaProductosPedidos",views.llenarTablaProductosPedidos, name='llenarTablaProductosPedidos')
+    path("api/llenarTablaProductosPedidos",views.llenarTablaProductosPedidos, name='llenarTablaProductosPedidos'),
+    path("api/productosMasVendidos",views.productosMasVendidos, name='productosMasVendidos'),
+    path("api/ventas_totales_metodo_pago",views.ventas_totales_metodo_pago, name='ventas_totales_metodo_pago')
+    
     
     #path("pedidos/docs/",include_docs_urls(title="API Pedidos")),
     
