@@ -54,7 +54,7 @@ def productosMasVendidos(request):
     resultados = (
         Producto.objects
         .annotate(total_vendidos=Sum('pedidoproducto__cantidad_producto_carrito'))
-        .values('id','nombre', 'precio', 'total_vendidos','estado_producto','descripcion','cantidad_producto')
+        .values('nombre', 'precio', 'total_vendidos','estado_producto','cantidad_producto')
         .order_by('-total_vendidos')
     )
       
