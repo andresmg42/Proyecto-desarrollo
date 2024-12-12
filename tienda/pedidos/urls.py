@@ -24,7 +24,7 @@ urlpatterns = [
     path("api/metodos_pago_mas_utilizados",views.metodos_pago_mas_utilizados, name='metodos_pago_mas_utilizados'),
     path("api/clientes_mas_frecuentes",views.clientes_mas_frecuentes, name='clientes_mas_frecuentes'),
     path("api/valor_total_ventas",views.valor_total_ventas, name='valor_total_ventas'),
-    path("api/productos_mas_vendidos",views.productos_mas_vendidos, name='productos_mas_vendidos')
+    path("api/productos_mas_vendidos",views.productos_mas_vendidos, name='productos_mas_vendidos'),
     
     
     path("api/send_email_cancel/", views.send_email_cancel,name='send_email_cancel'),

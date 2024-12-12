@@ -152,7 +152,7 @@ def send_email_cancel(request):
         send_mail(
             'Pedido cancelado',
             mensaje, 
-            'andresdavid.ortega@gmail.com',
+            'tiendaonlinedesarrollo@gmail.com',
             [dest],
             fail_silently=False,
         )
