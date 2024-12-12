@@ -125,3 +125,12 @@ def valor_total_ventas(request):
         total_ventas=Sum(F('pedidoproducto__cantidad_producto_carrito') * F('pedidoproducto__producto_ppid__precio'))
     ))
     return Response(resultado,status=200)
+
+
+@api_view(['GET'])
+def productos_mas_vendidos(request):
+    resultado=(Producto.objects.values('nombre').annotate(
+        total_vendidos=Sum('pedidoproducto__cantidad_producto_carrito')
+    ))
+    
+    return Response(resultado,status=200)
