@@ -34,16 +34,33 @@ class PedidoProductoView(viewsets.ModelViewSet):
     authentication_classes=[TokenAuthentication]
     
 @api_view(['POST'])
-@authentication_classes([TokenAuthentication])
-@permission_classes([IsAuthenticated])
+# @authentication_classes([TokenAuthentication])
+# @permission_classes([IsAuthenticated])
 def llenarTablaProductosPedidos(request):
     
     data=request.data
+    print(data)
     for element in data:
         serializer= PedidoProductoSerializer(data=element)
+        print(serializer.is_valid())
         if serializer.is_valid():
             serializer.save()
+            actualizarCantidadProductos(serializer)
+            
     return Response({'los datos fueron guardados con exito'},status=200)
+
+def actualizarCantidadProductos(serializer):
+    try:
+        producto=Producto.objects.get(id=serializer.data['producto_ppid'])
+        producto.cantidad_producto=producto.cantidad_producto-serializer.data['cantidad_producto_carrito']
+        producto.save()
+        print('el producto se actualizo con exito')
+    except Producto.DoesNotExist:
+        print('el producto no existe')
+    except KeyError:
+        print('la clave producto_PPid no esta en serializer.data')
+
+
 
 
 @api_view(['GET'])
