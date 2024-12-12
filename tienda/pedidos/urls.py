@@ -28,6 +28,7 @@ urlpatterns = [
     
     
     path("api/send_email_cancel/", views.send_email_cancel,name='send_email_cancel'),
+    path("api/generar_factura/", views.generar_factura),
     #path("pedidos/docs/",include_docs_urls(title="API Pedidos")),
     
 
