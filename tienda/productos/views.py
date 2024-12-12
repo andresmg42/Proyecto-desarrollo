@@ -8,14 +8,15 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.authentication import TokenAuthentication
 
+
         
 class IsStaffOrSuperuserWriteOnly(permissions.BasePermission):
     def has_permission(self, request, view):
-        # Permitir métodos de lectura (GET, HEAD, OPTIONS) para cualquiera
+        
         if request.method in permissions.SAFE_METHODS:
             return True
         
-        # Métodos de escritura solo para usuarios autenticados como staff o superusuarios
+        
         return request.user.is_authenticated and (request.user.is_staff or request.user.is_superuser)
 
 class ProductosUsuariosView(viewsets.ModelViewSet):
@@ -26,7 +27,7 @@ class ProductoView(viewsets.ModelViewSet):
     serializer_class = ProductoSerializer
     queryset = Producto.objects.all()
     
-    # Aplicar el permiso personalizado
+    
     def get_authenticators(self):
         return super().get_authenticators()
     authentication_classes = [TokenAuthentication]
