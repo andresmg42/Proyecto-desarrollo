@@ -11,6 +11,12 @@ from productos.models import Producto
 from productos.serializer import ProductoSerializer
 from django.http import JsonResponse
 from django.db.models import F,Sum
+from django.core.mail import send_mail
+from rest_framework.decorators import api_view
+from rest_framework import status
+from rest_framework.response import Response
+
+
 
 
 class PedidoView(viewsets.ModelViewSet):
@@ -134,3 +140,22 @@ def productos_mas_vendidos(request):
     ))
     
     return Response(resultado,status=200)
+@api_view(['GET'])
+def send_email_cancel(request):
+    dest = request.GET.get('dest')
+    mensaje = request.GET.get('mensaje')
+    
+    if not dest or not mensaje:
+        return Response({'error': 'Missing dest or mensaje parameter'}, status=400)
+    
+    try:
+        send_mail(
+            'Pedido cancelado',
+            mensaje, 
+            'andresdavid.ortega@gmail.com',
+            [dest],
+            fail_silently=False,
+        )
+        return Response({'success': 'Email sent successfully'})
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
