@@ -1,5 +1,5 @@
 from django.contrib import admin
-from productos.models import Producto,ProductoUsuario
+from productos.models import Producto,ProductoUsuario,Favoritos
 
 
 class ProductosAdmin(admin.ModelAdmin):
@@ -12,6 +12,7 @@ class ProductosAdmin(admin.ModelAdmin):
 
 admin.site.register(Producto, ProductosAdmin)
 admin.site.register(ProductoUsuario)
+admin.site.register(Favoritos)
 
 
 

@@ -9,6 +9,7 @@ router=routers.DefaultRouter()
 
 router.register(r'productos',views.ProductoView,'productos')
 router.register(r'users_products', views.ProductosUsuariosView,'users_products')
+router.register(r'favoritos', views.FavoritosView,'favoritos')
 
 urlpatterns = [
 

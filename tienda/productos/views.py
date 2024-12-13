@@ -2,8 +2,8 @@ from django.http import JsonResponse
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import ProductoSerializer,UserProductoSerializer
-from .models import  Producto,ProductoUsuario
+from .serializer import ProductoSerializer,UserProductoSerializer,FavoritosSerializer
+from .models import  Producto,ProductoUsuario,Favoritos
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.authentication import TokenAuthentication
@@ -22,6 +22,10 @@ class IsStaffOrSuperuserWriteOnly(permissions.BasePermission):
 class ProductosUsuariosView(viewsets.ModelViewSet):
     serializer_class= UserProductoSerializer
     queryset = ProductoUsuario.objects.all()
+
+class FavoritosView(viewsets.ModelViewSet):
+    serializer_class= FavoritosSerializer
+    queryset = Favoritos.objects.all()
 
 class ProductoView(viewsets.ModelViewSet):
     serializer_class = ProductoSerializer
