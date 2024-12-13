@@ -144,7 +144,8 @@ MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 
 #corse autorization
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173"
+    "http://localhost:5173",
+    "https://classmart-dezen37ze-emilys-projects-f0432740.vercel.app"
 ]
 
 REST_FRAMEWORK = {
