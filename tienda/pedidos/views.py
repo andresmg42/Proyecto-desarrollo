@@ -79,7 +79,8 @@ def productosMasVendidos(request):
       
     
     for resultado in resultados:
-        resultado['ingresos']=resultado['precio']*resultado['total_vendidos']
+        total_vendidos = resultado['total_vendidos'] or 0
+        resultado['ingresos']=resultado['precio']*total_vendidos
     
     
     return Response(resultados,status=200)    
