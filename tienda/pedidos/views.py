@@ -188,8 +188,12 @@ def send_email_cancel(request):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def generar_factura(request):
     pedido_id = request.GET.get('pedido_id')
+    
+   
     
     if not pedido_id:
         return Response({'error': 'Falta el ID del pedido'}, status=400)
@@ -198,38 +202,45 @@ def generar_factura(request):
         
         pedido = Pedido.objects.get(id=pedido_id)
         productos_ids = pedido.productos.values_list('id', flat=True)
+        
+        
         usuario = pedido.usuarios
         
         usuario_serializado = UsuarioSerializer(usuario).data
         
         
-        productos = PedidoProducto.objects.filter(id__in=productos_ids)
+        productos = PedidoProducto.objects.filter(pedido_ppid=pedido_id)
         productos_serializados = PedidoProductoSerializer(productos, many=True).data
+        
+        
         
        
         productos_info = Producto.objects.filter(id__in=productos_ids)
         productos_info_serializados = ProductoSerializer(productos_info, many=True).data
         
-        
         cantidades_carrito = {}
         for producto in productos_serializados:
-            cantidades_carrito[producto['id']] = producto.get('cantidad_producto_carrito', 0)
+            cantidades_carrito[producto['producto_ppid']] = producto.get('cantidad_producto_carrito', 0)
         
-       
+        
         total = 0
         total_por_producto = {}
         
         for producto in productos_info_serializados:
             pid = producto['id']
+            print('pedido_id:',pedido_id)
             cant = float(cantidades_carrito.get(pid, 0))
             precio = float(producto['precio'])
+            print('precio:',precio)
+            print('cantidad:',cant)
             total_por_producto[pid] = cant * precio
+            print(total_por_producto)
             total += cant * precio
         
     
         serializer = PedidoSerializer(pedido)
         
-    
+        
         mensaje = f"""
         FACTURA ELECTRONICA
             CLASSMART
@@ -253,6 +264,7 @@ def generar_factura(request):
             cantidad_carrito = cantidades_carrito.get(producto['id'], 0)
             total_producto = total_por_producto.get(producto['id'], 0)
             
+            
             mensaje += f"""
             - Producto: {producto['nombre']}
               Precio: {producto['precio']}
@@ -268,13 +280,6 @@ def generar_factura(request):
         """
     
         
-        response_data = {
-            'pedido': serializer.data,
-            'productos_ids': list(productos_ids),
-            'productos': productos_serializados,
-            'productos_info': productos_info_serializados,
-            'usuario': usuario_serializado
-        }
         
         send_mail(
             'FACTURACION ELECTRONICA',
