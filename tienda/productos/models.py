@@ -25,6 +25,14 @@ class ProductoUsuario(models.Model):
     usuario = models.ForeignKey(User, on_delete= models.CASCADE)
     producto= models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad_producto=models.IntegerField()
+
+class Favoritos(models.Model):
+    usuario = models.ForeignKey(User, on_delete= models.CASCADE)
+    producto= models.ForeignKey(Producto, on_delete=models.CASCADE)
+    class Meta:
+        verbose_name='Favorito'
+        verbose_name_plural='Favoritos'
+    
     
     
 
