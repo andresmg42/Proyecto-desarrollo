@@ -18,9 +18,4 @@ class ProductosMasVendidosSerializer(serializers.Serializer):
     class Meta:
         model=Producto
         fields='__all__'
-    # nombre=serializers.CharField()
-    # categoria=serializers.CharField()
-    # total_vendidos=serializers.IntegerField()
-    # estado_producto=serializers.BooleanField()
-    # precio=serializers.DecimalField()
-    # descripcion
+  

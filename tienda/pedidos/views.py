@@ -34,8 +34,8 @@ class PedidoProductoView(viewsets.ModelViewSet):
     authentication_classes=[TokenAuthentication]
     
 @api_view(['POST'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def llenarTablaProductosPedidos(request):
     
     data=request.data
@@ -64,8 +64,8 @@ def actualizarCantidadProductos(serializer):
 
 
 @api_view(['GET'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def productosMasVendidos(request):
    
     resultados = (
@@ -83,8 +83,8 @@ def productosMasVendidos(request):
     return Response(resultados,status=200)    
     
 @api_view(['GET'])
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def indicadores_por_usuario(request):
     
     resultado=(Pedido.objects.values('usuarios__username').annotate(
@@ -96,8 +96,8 @@ def indicadores_por_usuario(request):
 
     return Response(resultado,status=200)
 
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated]) 
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated]) 
 @api_view(['GET'])   
 def pedidos_por_estado(request):
     
@@ -107,8 +107,8 @@ def pedidos_por_estado(request):
     
     return Response(resultado,status=200)
 
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def ventas_diarias(request):
     resultado=(Pedido.objects.values('fecha').annotate(
@@ -119,8 +119,8 @@ def ventas_diarias(request):
     return Response(resultado,status=200)
 
 
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def metodos_pago_mas_utilizados(request):
     resultado=(Pedido.objects.values('metodo_pago').annotate(
@@ -129,8 +129,8 @@ def metodos_pago_mas_utilizados(request):
     
     return Response(resultado,status=200)
 
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def clientes_mas_frecuentes(request):
     
@@ -140,8 +140,8 @@ def clientes_mas_frecuentes(request):
     
     return Response(resultado,status=200)
 
-# @authentication_classes([TokenAuthentication])
-# @permission_classes([IsAuthenticated])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def valor_total_ventas(request):
     resultado=(Pedido.objects.aggregate(
@@ -151,12 +151,17 @@ def valor_total_ventas(request):
 
 
 @api_view(['GET'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def productos_mas_vendidos(request):
     resultado=(Producto.objects.values('nombre').annotate(
         total_vendidos=Sum('pedidoproducto__cantidad_producto_carrito')
     ))
     
     return Response(resultado,status=200)
+
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 @api_view(['GET'])
 def send_email_cancel(request):
     dest = request.GET.get('dest')
