@@ -175,7 +175,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "https://classsmart-mu.vercel.app",
-    "https://tiendaonline-muq0egufd-andresmg42s-projects.vercel.app"
+    "https://tiendaonline-blond.vercel.app"
     ]
 
 REST_FRAMEWORK = {
