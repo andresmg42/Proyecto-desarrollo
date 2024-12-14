@@ -144,7 +144,7 @@ def verify_email(request):
         
 def send_verification_email(user):
     token,created= Token.objects.get_or_create(user=user)
-    verification_link = f"https://tiendaonline-blond.vercel.app/verify_Email/{token}"
+    verification_link = f"https://classsmart-mu.vercel.app/verify_Email/{token}"
     send_mail(
         'Verify your email',
         f'Click the link to verify: {verification_link}',
