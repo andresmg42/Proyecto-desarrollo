@@ -13,7 +13,9 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-
+import cloudinary_storage
+import cloudinary.uploader
+import cloudinary.api
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -59,6 +61,8 @@ INSTALLED_APPS = [
     "categorias",
     "pedidos",
     "usuarios",
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -200,3 +204,20 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 RECAPTCHA_PUBLIC_KEY = "6Ldch5QqAAAAAJWAlfhVj8E7LFxqh4ezcB40DTqJ"
 RECAPTCHA_PRIVATE_KEY = "6Ldch5QqAAAAABw5ohrwoVQ9y5danUtqDWdcaJwV"
+
+
+#CONFIGURAR CON CREDECIALES DEL SITIO WEB
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': 'dkv2wue54',
+#     'API_KEY': '326551833656289',
+#     'API_SECRET': 'hwK_e29GDXiO-NAET6Nq6AhKw9U'
+# }
+
+cloudinary.config(
+    cloud_name='dkv2wue54',
+    api_key='326551833656289',
+    api_secret='hwK_e29GDXiO-NAET6Nq6AhKw9U',
+)
+
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

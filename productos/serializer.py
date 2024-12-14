@@ -3,10 +3,6 @@ from .models import  Producto,ProductoUsuario,Favoritos
 from django.contrib.auth.models import User
 
       
-class ProductoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Producto
-        fields= '__all__'
         
         
 class UserProductoSerializer(serializers.ModelSerializer):
@@ -19,3 +15,15 @@ class FavoritosSerializer(serializers.ModelSerializer):
         model=Favoritos
         fields= '__all__'
         
+
+
+      
+class ProductoSerializer(serializers.ModelSerializer):
+   
+    foto_producto = serializers.ImageField(required=False)
+    class Meta:
+        model=Producto
+        fields= ['id','nombre','foto_producto','categoria','precio','descripcion','cantidad_producto','estado_producto']
+        
+    def get_foto_producto(self,obj):
+        return obj.foto_producto.url if obj.foto_producto else None

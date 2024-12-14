@@ -87,8 +87,8 @@ def search_products(request):
     filter_args = {criteria: value}
     products = Producto.objects.filter(**filter_args)
     serializer = ProductoSerializer(instance=products, many=True)  
-    for product in serializer.data:
-        product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
+    # for product in serializer.data:
+    #     product['foto_producto'] = request.build_absolute_uri(product['foto_producto'])
     return Response({"products": serializer.data}, status=status.HTTP_200_OK)
     
     

@@ -1,6 +1,7 @@
 from django.db import models
 from categorias.models import Categoria
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
     
 class Producto(models.Model):
@@ -11,8 +12,8 @@ class Producto(models.Model):
     nombre=models.CharField(max_length=30)
     precio= models.DecimalField(max_digits=10, decimal_places=2)
     descripcion=models.CharField(max_length=50, verbose_name="Descripción")
-    foto_producto=models.ImageField(upload_to='productos/', null=True, blank=True, verbose_name="Foto del producto")
     cantidad_producto=models.IntegerField(verbose_name="Cantidad")
+    foto_producto=CloudinaryField('image', blank=True, null=True)
     
     class Meta:
         verbose_name='producto'
