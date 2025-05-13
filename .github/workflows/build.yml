@@ -3,8 +3,12 @@ on:
   push:
     branches:
       - main
+      - dev
   pull_request:
     types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - dev
 jobs:
   sonarqube:
     name: SonarQube
@@ -19,6 +23,7 @@ jobs:
           args: >
             -Dsonar.projectKey=andresmg42_Proyecto-desarrollo
             -Dsonar.organization=andresmg42
+            -Dsonar.branch.name=${{github.ref_name}}
             
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
