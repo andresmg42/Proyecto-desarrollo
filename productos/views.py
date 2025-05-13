@@ -97,10 +97,11 @@ def search_products(request):
 def search_users_products(request):
     
     criteria = request.GET.get('criteria')
-    value = int(request.GET.get('value'))
+    value=request.GET.get('value')
+    if value is not None:
+        value = int(value)
     
-    print("criteria= ",criteria)
-    print("value= ",value)
+    
     
     if not criteria or not value:
         return Response({"error": "Missing criteria or value"}, status=400)

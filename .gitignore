@@ -6,3 +6,4 @@ tienda/gestion/__pycache__/views.cpython-312.pyc
 __pycache__
 .venv
 pruebas.py
+db.sqlite3
